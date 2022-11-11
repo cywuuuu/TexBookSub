@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BookEntityModel" representedClassName="BookEntityModel" syncable="YES" codeGenerationType="class">
+        <attribute name="bookdescript" optional="YES" attributeType="String"/>
+        <attribute name="bookimg" optional="YES" attributeType="Binary"/>
+        <attribute name="bookname" optional="YES" attributeType="String"/>
+        <attribute name="course" optional="YES" attributeType="String"/>
+        <attribute name="historyprice" optional="YES" attributeType="Transformable" customClassName="[Double]"/>
+        <attribute name="historypurchase" optional="YES" attributeType="Transformable" customClassName="[Int]"/>
+        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="remain" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="total" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="trending" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserEntityModel"/>
+    </entity>
+    <entity name="UserEntityModel" representedClassName="UserEntityModel" syncable="YES" codeGenerationType="class">
+        <attribute name="money" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="password" optional="YES" attributeType="String"/>
+        <attribute name="username" optional="YES" attributeType="String"/>
+        <relationship name="buyBook" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookEntityModel"/>
+        <relationship name="like" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookEntityModel"/>
+        <relationship name="publishBook" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="BookEntityModel"/>
+    </entity>
+    <elements>
+        <element name="BookEntityModel" positionX="0" positionY="45" width="128" height="179"/>
+        <element name="UserEntityModel" positionX="-36" positionY="9" width="128" height="119"/>
+    </elements>
+</model>
