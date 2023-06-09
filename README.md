@@ -70,7 +70,7 @@ In the View layer, the structure is as follows:
 
 <img src="picture/image-20221110230449238.png" alt="image-20221110230449238" style="zoom: 67%;" />
 
-## 功能设计与实现
+## function design
 
 
 1. Login and Registration
@@ -128,7 +128,7 @@ The ViewModel implementation for this functionality would include:
 
 <img src="picture/截屏2022-11-10 22.18.14.png" alt="截屏2022-11-10 22.18.14" style="zoom: 33%;" /><img src="picture/截屏2022-11-10 22.18.05.png" alt="截屏2022-11-10 22.18.05" style="zoom: 33%;" />
 
-此外还可以对书籍进行管理
+book management
 
 <img src="picture/image-20221110231630769.png" alt="image-20221110231630769" style="zoom:33%;" />
 
