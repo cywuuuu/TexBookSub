@@ -1,10 +1,10 @@
-# TexBookSub 北航图书订阅app
+# TexBookSub Beihang University Textbook Subscription App
 
 
 
 [TOC]
 
-## 效果预览
+## preview
 
 | <img src="picture/simulator_screenshot_E9420DEE-BE67-487D-85D2-F7D3D1017082.png" alt="simulator_screenshot_E9420DEE-BE67-487D-85D2-F7D3D1017082" style="zoom: 33%;" /> | <img src="picture/Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.10.48.png" alt="Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.10.48" style="zoom: 33%;" /> | <img src="picture/Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.11.07.png" alt="Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.11.07" style="zoom: 33%;" /> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -13,19 +13,18 @@
 
 
 
-## 简介
+## description
 
-每到开学时分，课本订购就每到开学时分，课本订购就会成为每⼀位同学不得不耗费精⼒的⼀件琐事。或每个⼩班群内统计汇总购书情况，由⼩班长统⼀汇总提交⾄教材处、再以班级为单位去教材处领书、分发；或班级推荐的教材购买以后发现整个学期的课根本⽤不上此教 材；或同学们联系学长学姐购买⼆⼿书，经常因为找不到学长学姐出书、错过在⼤班群中的⼆⼿书信息⽽焦头烂额。可见，开学购买教材是⼀件极其繁琐、分散的事情。这启发我们， 能否建⽴⼀个校内的⾮营利平台，将教材处购买教材、向同学购买⼆⼿教材等教材购置渠道进⾏统⼀，在全程在线上进⾏。
+Every semester, textbook ordering becomes a tedious task that every student has to put effort into. Either each small group collects and summarizes the book purchasing information, which is then submitted by the group leader to the textbook office for ordering and distribution at the class level. Or students purchase recommended textbooks only to find out they are not needed for the entire semester. Alternatively, students try to contact senior students to buy second-hand books but often struggle to find available sellers or miss out on information shared in large group chats. It is evident that purchasing textbooks at the beginning of the semester is a highly cumbersome and scattered process. This inspires us to establish a non-profit platform within the university to centralize the channels for purchasing textbooks from the textbook office and buying/selling second-hand textbooks among students, all done online.
 
-这样⼀来，⼀⽅⾯⽅便教材处不⽤和各个⼩班对接，⽅便⼩班负责⼈不必处理教材订购、群收款、领书等琐事；另⼀⽅⾯也使得购买教材和出售⼆⼿教材的同学不需要再忍受信息不对等带来的不便。会成为每⼀位同学不得不耗费精⼒的⼀件琐事。或每个⼩班群内统计汇总购 书情况，由⼩班长统⼀汇总提交⾄教材处、再以班级为单位去教材处领书、分发；或班级推荐的教材购买以后发现整个学期的课根本⽤不上此教材；或同学们联系学长学姐购买⼆⼿书，经常因为找不到学长学姐出书、错过在⼤班群中的⼆⼿书信息⽽焦头烂额。可见，开学购买教材是⼀件极其繁琐、分散的事情。这启发我们，能否建⽴⼀个校内的⾮营利平台，将教材处购买教材、向同学购买⼆⼿教材等教材购置渠道进⾏统⼀，在全程在线上进⾏。
+By doing so, it would be convenient for the textbook office as they no longer have to coordinate with each small group, and it would be easier for the small group representatives who would no longer need to handle textbook ordering, collecting payments, and book distribution. On the other hand, it would also eliminate the inconvenience caused by information asymmetry for students buying and selling textbooks.
 
-这样⼀来，⼀⽅⾯⽅便教材处不⽤和各个⼩班对接，⽅便⼩班负责⼈不必处理教材订购、群收款、领书等琐事；另⼀⽅⾯也使得购买教材和出售⼆⼿教材的同学不需要再忍受信息不对等带来的不便。
-
-## 架构
+## arch
 
 <img src="picture/image-20221110224852571.png" alt="image-20221110224852571" style="zoom: 50%;" />
 
-本项目采用了`swiftUI + mvvm`模式（伪），其中在`Model`中建立了两个实体`user、book`, 在`ViewModel`中，为了节省力气，把每个视图的`ViewModel`集成在了一个类里，并通过单例模式, 在每个页面`View`中获取并共享， 其中将`ViewModel`设置位`@MainActor`使得当`@published`变量变化时，更新各个页面。
+
+This project adopts the "SwiftUI + MVVM" (pseudo) pattern. In the "Model" layer, two entities, "user" and "book", are established. In the "ViewModel" layer, to save effort, the ViewModel for each view is integrated into a single class. This class is accessed and shared through a singleton pattern in each "View" page. The ViewModel is marked with @MainActor to ensure that when a @Published variable changes, all the pages are updated accordingly.
 
 ```swift
 @MainActor class ViewModel : ObservableObject{
@@ -38,7 +37,7 @@
     @Published var searchKey: String = ""
 ```
 
-其中部分组件写在了`component`中， 会采用`@State` `@Binding`绑定传值。但由于单例模式下的viewmodel 会一定可能导致页面刷新过慢，还需要进一步完善。另外，如需持久化，则可以采取该方式进行对json的读写，但由于时间原因，我没由实现`User、Book`的`Codable`, 还可以进一步改进
+Some components are written in the `component` section, and they use `@State` and `@Binding` for value binding. However, due to the singleton pattern of the ViewModel, it may cause slow page refreshing and needs further improvement. Additionally, if persistence is required, this approach can be used for reading and writing JSON. However, due to time constraints, I haven't implemented `Codable` for `User` and `Book` yet. There is room for further improvement.
 
 ```swift
     
@@ -66,15 +65,16 @@
 
 
 
-View视图中，其结构为
+
+In the View layer, the structure is as follows:
 
 <img src="picture/image-20221110230449238.png" alt="image-20221110230449238" style="zoom: 67%;" />
 
 ## 功能设计与实现
 
-1. 登录注册
 
-在viewModel中记录了当前用户nowUser，UserPool中记录了已经注册的用户，登陆注册的逻辑如下
+1. Login and Registration
+In the ViewModel, the current user is recorded as nowUser, and the UserPool keeps track of registered users. The logic for login and registration is as follows:
 
 ```swift
     func makeregister(username: String, password: String) -> Bool{
@@ -103,18 +103,17 @@ View视图中，其结构为
     }
 ```
 
-效果（正确为 cyw20373456, 123123）
+
 
 |      | <img src="picture/Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.10.48-166809361660725.png" alt="Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.10.48" style="zoom: 25%;" /><img src="picture/Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.10.03.png" alt="Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.10.03" style="zoom: 25%;" /><img src="picture/Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.09.47-166809354769422.png" alt="Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.09.47" style="zoom: 25%;" /> |      |
 | ---- | ------------------------------------------------------------ | ---- |
 
 
+2. Publishing and Managing Textbooks
 
+The code for publishing and managing textbooks is located in `CheckOut.swift` within the `PublishView`. This functionality allows users to upload and publish new textbooks. In the view, we can create a new `Book` object using the parameters obtained from the bindings and then call the corresponding method in the ViewModel.
 
-
-2. 发布、管理教材
-
-其代码位于`CheckOut.swift` 中的`PublishView`中，可以支持用户的上传发布新的教材，我们在view中对绑定得到参数进行新建Book对象然后调用ViewModel中的方法即可，ViewModel中的实现为
+The ViewModel implementation for this functionality would include:
 
 ```swift
     func publishBookToPool(Bk:BookModel) {
@@ -122,8 +121,6 @@ View视图中，其结构为
 //        savePublishPool() 如需持久化则加入这个
     }
 ```
-
-效果为
 
 <img src="picture/Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.17.54-166809325910217.png" alt="Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.17.54" style="zoom:33%;" /><img src="picture/Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.17.25-166809324656215.png" alt="Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.17.25" style="zoom:33%;" />
 
@@ -148,9 +145,12 @@ var nowUserPublish: [BookModel] {
     }
 ```
 
-3. 购买教材
 
-每个User都维护了一个Cart:[Book:Int] 的列表用于记录当前购买的商品和数量
+3. Purchasing Textbooks
+
+Each User maintains a `Cart` as a dictionary of `[Book: Int]` to keep track of the currently purchased items and their quantities.
+
+
 
 ```swift
     func buyBook(bk: BookModel, amount: Int) {
@@ -170,23 +170,21 @@ var nowUserPublish: [BookModel] {
     }
 ```
 
-效果：
+Effect:
 
 <img src="picture/Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.12.44.png" alt="Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.12.44" style="zoom: 33%;" />
-
-最初的购物车
+Initial shopping cart.
 
 <img src="picture/image-20221110233026904.png" alt="image-20221110233026904" style="zoom: 33%;" />
-
-买两本verilog
+Buying two books of Verilog.
 
 <img src="picture/Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.18.24-166809418087532.png" alt="Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.18.24" style="zoom:33%;" />
-
-买完以后
-
+Shopping cart after purchase.
 
 
-此外我们购物主页的信息，通过计算属性来获取
+
+
+Additionally, the information on our shopping homepage is obtained through computed properties.
 
 ```swift
 var trending: [BookModel] {
@@ -218,6 +216,6 @@ var trending: [BookModel] {
 
 <img src="picture/Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.11.07-166809462524035.png" alt="Simulator Screen Shot - iPhone 11 - 2022-11-10 at 22.11.07" style="zoom: 33%;" />
 
-4. 清空购物车
+4. clear shopping cart
 
 <img src="picture/image-20221110233127216.png" alt="image-20221110233127216" style="zoom: 33%;" />
